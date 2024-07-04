@@ -1,0 +1,144 @@
+# Mandatory
+server:
+  port: 5002
+
+# Mandatory.
+cache:
+  host: "127.0.0.1"
+  port: 6379
+  ttl: "PT10M"
+  # Optional. Default is 0.
+  db: 1
+
+# Optional.
+responseCache:
+  mongoURL: "mongodb://localhost:27017/ps?authSource=admin"
+  ttl: "PT10M"
+
+# Mandatory.
+# Priority order will be
+# 1. Synchronous
+# 2. webhook
+# 3. pubSub
+client:
+  synchronous: 
+    mongoURL: "mongodb://localhost:27017/ps?authSource=admin"
+
+  #webhook:
+  #  url: "https://beckn.free.beeceptor.com/clientURL"
+  
+  #messageQueue: 
+  #  amqpURL: "amqp://guest:guest@localhost:5672"
+  #  incomingQueue: "protocol-server-incoming"
+  #  outgoingQueue: "protocol-server-outgoing"
+
+# Mandatory.
+app:
+  # Mandatory.
+  mode: bap
+
+  # Two types of gateway mode present.
+  # client and network.
+  gateway:
+    mode: network
+    inboxQueue: "inbox"
+    outboxQueue: "outbox"
+    amqpURL: "amqp://guest:guest@localhost:5672/"
+
+  # Mandatory.
+  actions:
+    requests:
+      search:
+        ttl: "PT20S"
+      init:
+        ttl: "PT20S"
+      select:
+        ttl: "PT20S"
+      confirm:
+        ttl: "PT20S"
+      status:
+        ttl: "PT20S"
+      track:
+        ttl: "PT20S"
+      support:
+        ttl: "PT20S"
+      update:
+        ttl: "PT20S"
+      cancel:
+        ttl: "PT20S"
+      rating:
+        ttl: "PT20S"
+      get_cancellation_reasons:  
+        ttl: "PT20S"
+      get_rating_categories:
+        ttl: "PT20S"
+    
+    responses: 
+      on_search:
+        ttl: "PT60S"
+      on_init:
+        ttl: "PT20S"
+      on_select:
+        ttl: "PT20S"
+      on_confirm:
+        ttl: "PT20S"
+      on_status:
+        ttl: "PT20S"
+      on_track:
+        ttl: "PT20S"
+      on_support:
+        ttl: "PT20S"
+      on_update:
+        ttl: "PT20S"
+      on_cancel:
+        ttl: "PT20S"
+      on_rating:
+        ttl: "PT20S"
+      cancellation_reasons:
+        ttl: "PT20S"
+      rating_categories:
+        ttl: "PT20S"
+  
+  # Mandatory.
+  keys:
+    - privateKey: "HgEnbjxAkO7eOHROccOpI7PFxXr2hn9J4u4owJVgn/miVtE2oC/e2/s2p+/wxxb92YvEjExbky1znu3GNUnhyA=="
+      publicKey: "olbRNqAv3tv7Nqfv8McW/dmLxIxMW5Mtc57txjVJ4cg="
+      uniqueKey: "0dcff066-2774-4759-a069-3c8a33a94b63"
+      subscriberId: "bd1f-2409-40e5-95-5843-645a-6813-d18a-2129.ngrok-free.app"
+      subscriberUri: "https://bd1f-2409-40e5-95-5843-645a-6813-d18a-2129.ngrok-free.app/" # ==========> localhost:5002
+      
+    - privateKey: "032A+Tced/QAW2ltQ2q03f2xitUPtvV/6uH8C+cicKR4WvpPdpUzK1C6yKti0lnU11XcAvDIoTpuUoJVqoCKfw=="
+      publicKey: "eFr6T3aVMytQusirYtJZ1NdV3ALwyKE6blKCVaqAin8="
+      uniqueKey: "05b64093-ecef-4577-a2b3-d40664882fba"
+      subscriberId: "jobs-bap-dev.tekdinext.com"
+      subscriberUri: "https://jobs-bap-dev.tekdinext.com/"  # ==========> localhost:5002
+
+    - privateKey: "E0kQCDDXoPi/lI5iIdZlwx818uLs288/ohlHGPSO9G/FvDD3QmR3tTZ1P9X19H325VnjMoUaq/bUto1pShtvJA=="
+      publicKey: "xbww90Jkd7U2dT/V9fR99uVZ4zKFGqv21LaNaUobbyQ"
+      uniqueKey: "c85b0689-fb0f-4425-8837-eef8140c8d48"
+      subscriberId: "smart-days-happen.loca.lt"
+      subscriberUri: "https://smart-days-happen.loca.lt/"  # ==========> localhost:5002
+
+  # Mandatory.
+  registryUrl: "https://sandbox.onest.network/onest"
+  auth: false
+  
+  # Mandatory.
+  city: "std:080"
+  country: "IND"
+
+  # Mandatory.
+  ttl: "PT10M"
+
+  # Mandatory.
+  httpTimeout: "PT3S"
+  httpRetryCount: 2
+
+  # sync interval is in minutes
+  telemetry:
+    enabled: false
+    url: "https://data.onest.network/data/v1/in/onest-network-telemetry"
+    batchSize: 100
+    # In minutes
+    syncInterval: 30
+    redis_db: 3
