@@ -87,9 +87,9 @@ export const parseClientConfig = (config: any): ClientConfigDataType => {
         throw new Exception(ExceptionType.Config_ClientConfig_Invalid, "Not even one type of Client Configuration is found.", 400);
     }
 
-    // if(Object.keys(config).length>1){
-    //     throw new Exception(ExceptionType.Config_ClientConfig_Invalid, "More than one type of Client Configuration found.", 400);
-    // }
+    if(Object.keys(config).length>1){
+        throw new Exception(ExceptionType.Config_ClientConfig_Invalid, "More than one type of Client Configuration found.", 400);
+    }
 
     if(config['synchronous']){
         return {
