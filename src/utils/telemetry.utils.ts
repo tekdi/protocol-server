@@ -35,15 +35,16 @@ const constructCdata = (message: any) => {
 };
 
 export function createTelemetryEvent(message: any) {
+  const keyIndex = 1
   let telemetry = { ...telemetryEnvelop };
   telemetry.ets = Date.now();
   telemetry.mid = v1();
   telemetry.context = {
-    channel: getConfig().app.subscriberId,
+    channel: getConfig().app.keys[keyIndex].subscriberId,
     domain: message.context.domain,
     pdata: {
-      id: getConfig().app.subscriberId,
-      uri: getConfig().app.subscriberUri
+      id: getConfig().app.keys[keyIndex].subscriberId,
+      uri: getConfig().app.keys[keyIndex].subscriberUri
     },
     source: {
       id:
@@ -72,7 +73,7 @@ export function createTelemetryEvent(message: any) {
       id:
         message.context.action === RequestActions.search &&
         getConfig().app.mode === AppMode.bpp
-          ? getConfig().app.subscriberId
+          ? getConfig().app.keys[keyIndex].subscriberId
           : message.context.action.includes("on_")
           ? message.context.bap_id
           : message.context.bpp_id,
@@ -86,7 +87,7 @@ export function createTelemetryEvent(message: any) {
       uri:
         message.context.action === RequestActions.search &&
         getConfig().app.mode === AppMode.bpp
-          ? getConfig().app.subscriberUri
+          ? getConfig().app.keys[keyIndex].subscriberUri
           : message.context.action.includes("on_")
           ? message.context.bap_uri
           : message.context.bpp_uri

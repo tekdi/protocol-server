@@ -82,12 +82,13 @@ export async function authBuilderMiddleware(
   next: NextFunction
 ) {
   try {
+    const keyIndex = 1;
     logger.info(`Building Auth Header\n`);
     const axios_config = await createAuthHeaderConfig(req.body);
     req.headers.authorization = axios_config.headers.authorization;
     const senderDetails = await getSubscriberDetails(
-      getConfig().app.subscriberId,
-      getConfig().app.uniqueKey
+      getConfig().app.keys[keyIndex].subscriberId,
+      getConfig().app.keys[keyIndex].uniqueKey
     );
     res.locals.sender = senderDetails;
     next();

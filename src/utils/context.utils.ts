@@ -102,14 +102,14 @@ export const bppContextBuilder = (context: any, action: string): any => {
       404
     );
   }
-
+  const keyIndex = 1;
   const bppContext: any = {
     domain: context.domain,
     action: ActionUtils.parseAction(context.action),
     version: context?.version,
     core_version: context?.core_version,
-    bpp_id: context.bpp_id ? context.bpp_id : getConfig().app.subscriberId,
-    bpp_uri: context.bpp_uri ? context.bpp_uri : getConfig().app.subscriberUri,
+    bpp_id: context.bpp_id ? context.bpp_id : getConfig().app.keys[keyIndex].subscriberId,
+    bpp_uri: context.bpp_uri ? context.bpp_uri : getConfig().app.keys[keyIndex].subscriberUri,
     country: context?.country ? context.country : getConfig().app.country,
     city: context?.city ? context.city : getConfig().app.city,
     location: context?.location,

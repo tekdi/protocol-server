@@ -62,16 +62,17 @@ export const signMessage = async (
 };
 
 export const createAuthorizationHeader = async (message: any) => {
+  const keyIndex = 1;
   const { signing_string, expires, created } = await createSigningString(
     JSON.stringify(message)
   );
   const signature = await signMessage(
     signing_string,
-    getConfig().app.privateKey || ""
+    getConfig().app.keys[keyIndex].privateKey || ""
   );
-  const subscriber_id = getConfig().app.subscriberId;
+  const subscriber_id = getConfig().app.keys[keyIndex].subscriberId;
   const header = `Signature keyId="${subscriber_id}|${
-    getConfig().app.uniqueKey
+    getConfig().app.keys[keyIndex].uniqueKey
   }|ed25519",algorithm="ed25519",created="${created}",expires="${expires}",headers="(created) (expires) digest",signature="${signature}"`;
   return header;
 };
